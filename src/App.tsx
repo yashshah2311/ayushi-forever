@@ -157,7 +157,7 @@ export default function Home() {
       <div className="panda-copy reveal"><p className="section-tag">03 / A TINY SURPRISE</p><h2>Whenever you need<br /><em>a hug from me…</em></h2><p>Pull the string. I saved one right here.</p></div>
       <div className="panda-stage">
         <div className="curtain-line" />
-        {pulled && <><img className="panda-sticker" src="/pandas-hug.png" alt="Two adorable pandas hugging" /><p className="panda-message">This is us. You’re never getting rid of my hugs, Ayushi. ♥</p></>}
+        {pulled && <><img className="panda-sticker" src={`${import.meta.env.BASE_URL}pandas-hug.png`} alt="Two adorable pandas hugging" /><p className="panda-message">This is us. You’re never getting rid of my hugs, Ayushi. ♥</p></>}
         <button className="pull-string" onClick={pullLove} aria-label="Pull the string to reveal a panda hug"><span className="cord" /><span className="handle">♥</span><b>{pulled ? "HUG DELIVERED" : "PULL FOR A HUG"}</b></button>
       </div>
     </section>

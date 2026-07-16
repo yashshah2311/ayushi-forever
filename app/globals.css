@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-:root { --ink:#f8eef1; --muted:#b9a7ad; --pink:#f34876; --wine:#20070f; --night:#090609; }
+:root { --ink:#f8eef1; --muted:#b9a7ad; --pink:#f34876; --wine:#20070f; --night:#090609; --font-sans:"Manrope","Avenir Next",Arial,sans-serif; --font-serif:"Cormorant Garamond","Iowan Old Style",Georgia,serif; }
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; background:var(--night); }
 body { margin:0; background:var(--night); color:var(--ink); font-family:var(--font-sans),sans-serif; overflow-x:hidden; }

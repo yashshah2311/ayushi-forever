@@ -79,6 +79,7 @@ export default function Home() {
   const root = useRef<HTMLElement>(null);
   const [names, setNames] = useState({ to: "My Love", from: "Forever Yours" });
   const [answered, setAnswered] = useState(false);
+  const [pulled, setPulled] = useState(false);
 
   useEffect(() => {
     const p = new URLSearchParams(location.search);
@@ -112,6 +113,15 @@ export default function Home() {
     }
   };
 
+  const pullLove = () => {
+    if (pulled) return;
+    setPulled(true);
+    requestAnimationFrame(() => {
+      gsap.fromTo(".panda-sticker", { y: 220, scale: .35, rotate: -8, opacity: 0 }, { y: 0, scale: 1, rotate: 0, opacity: 1, duration: 1.35, ease: "back.out(1.7)" });
+      gsap.fromTo(".panda-message", { y: 20, opacity: 0 }, { y: 0, opacity: 1, delay: .65, duration: .8 });
+    });
+  };
+
   return <main ref={root}>
     <Constellation />
     <div className="grain" aria-hidden="true" />
@@ -142,12 +152,21 @@ export default function Home() {
       <div className="cards">{reasons.map(([n, title, copy]) => <article className="reason-card" key={n}><span>{n}</span><div className="mini-heart">♥</div><h3>{title}</h3><p>{copy}</p></article>)}</div>
     </section>
 
-    <section className="quote section-pad"><p className="section-tag reveal">03 / MY PROMISE</p><blockquote className="reveal">“Whatever our souls<br />are made of, yours and<br />mine are <em>the same.</em>”</blockquote><p className="quote-by reveal">— EMILY BRONTË</p></section>
+    <section className={`panda-surprise ${pulled ? "is-pulled" : ""}`}>
+      <div className="panda-copy reveal"><p className="section-tag">03 / A TINY SURPRISE</p><h2>Whenever you need<br /><em>a hug from me…</em></h2><p>Pull the string. I saved one right here.</p></div>
+      <div className="panda-stage">
+        <div className="curtain-line" />
+        {pulled && <><img className="panda-sticker" src="/pandas-hug.png" alt="Two adorable pandas hugging" /><p className="panda-message">This is us. You’re never getting rid of my hugs, Ayushi. ♥</p></>}
+        <button className="pull-string" onClick={pullLove} aria-label="Pull the string to reveal a panda hug"><span className="cord" /><span className="handle">♥</span><b>{pulled ? "HUG DELIVERED" : "PULL FOR A HUG"}</b></button>
+      </div>
+    </section>
+
+    <section className="quote section-pad"><p className="section-tag reveal">04 / MY PROMISE</p><blockquote className="reveal">“Whatever our souls<br />are made of, yours and<br />mine are <em>the same.</em>”</blockquote><p className="quote-by reveal">— EMILY BRONTË</p></section>
 
     <section className="finale" id="question">
       <div className="finale-glow" />
       <div className="ring reveal"><span>♥</span></div>
-      {!answered ? <div className="proposal"><p className="section-tag reveal">04 / ONE BEAUTIFUL QUESTION</p><h2 className="reveal">{names.to},<br /><em>will you be mine,</em><br />forever?</h2><p className="reveal">I choose you today. I’ll choose you tomorrow.<br />I want to choose you for every day after.</p><div className="actions reveal"><button onClick={sayYes}>YES, A THOUSAND TIMES <span>♥</span></button><span className="tiny-note">P.S. There is only one right answer</span></div></div> : <div className="answer"><p>✦ OUR FOREVER STARTS HERE ✦</p><h2>You just made me<br /><em>the happiest person alive.</em></h2><span>I love you, {names.to}. Always.</span></div>}
+      {!answered ? <div className="proposal"><p className="section-tag reveal">05 / ONE BEAUTIFUL QUESTION</p><h2 className="reveal">{names.to},<br /><em>will you be mine,</em><br />forever?</h2><p className="reveal">I choose you today. I’ll choose you tomorrow.<br />I want to choose you for every day after.</p><div className="actions reveal"><button onClick={sayYes}>YES, A THOUSAND TIMES <span>♥</span></button><span className="tiny-note">P.S. There is only one right answer</span></div></div> : <div className="answer"><p>✦ OUR FOREVER STARTS HERE ✦</p><h2>You just made me<br /><em>the happiest person alive.</em></h2><span>I love you, {names.to}. Always.</span></div>}
       <footer><span>Made with an unreasonable amount of love</span><b>♥</b><span>{names.from} · {new Date().getFullYear()}</span></footer>
     </section>
   </main>;
